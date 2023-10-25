@@ -1,6 +1,6 @@
 import {  useReducer } from 'react'
 
-When to use: useReducer = immutable, always return a new type of dataas per switch case
+When to use: useReducer = immutable, always return a new type of data as per switch case
 
 1-When components have a lot of state variables and state updates,
   spread across many event handles all over the component
