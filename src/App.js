@@ -4,6 +4,7 @@ import Main from './Main'
 import Loader from './Loader';
 import Error from './Error';
 
+
 const initialState = {
   questions: [],
   status: 'loading',
