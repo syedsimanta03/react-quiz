@@ -11,6 +11,8 @@ import FinishScreen from './FinishScreen'
 import Footer from './Footer'
 import Timer from './Timer'
 
+const SECS_PER_QUESTION = 30
+
 const initialState = {
   questions: [],
   status: 'loading',
@@ -18,7 +20,7 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
-  secondsRemaining: 10,
+  secondsRemaining: null,
 }
 
 // action can also take data from initial satate at the same time like status
@@ -31,7 +33,7 @@ const reducer = (state, action) => {
       return { ...state, status: 'error' }
 
     case 'start':
-      return { ...state, status: 'active' }
+      return { ...state, status: 'active', secondsRemaining: state.questions.length * SECS_PER_QUESTION }
 
     case 'newAnswer':
       return {
@@ -53,7 +55,7 @@ const reducer = (state, action) => {
       return { ...initialState, questions: state.questions, status: 'ready' }
     
     case 'tick':
-      return { ...state, secondsRemaining: state.secondsRemaining - 1 }
+      return { ...state, secondsRemaining: state.secondsRemaining - 1, status: state.secondsRemaining === 0 ? 'finished' : state.status }
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`)
