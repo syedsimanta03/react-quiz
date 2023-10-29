@@ -1,4 +1,6 @@
-
+//jsconfig or tsconfig.json
+   /*  "jsx": "preserve",
+    "checkJs": true */
 
 {
   "compilerOptions": {

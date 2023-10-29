@@ -5,7 +5,7 @@
   --color-light: #f1f3f5;
 
   --color-theme: #1098ad;
-  --color-accent: #ffa94d;
+  --color-accent: #f70e0e;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
@@ -45,7 +45,7 @@ body {
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .error {
@@ -58,12 +58,12 @@ body {
 }
 
 img {
-  width: 14rem;
+  width: 12rem;
 }
 
 h1 {
   font-family: "Codystar";
-  font-size: 5.6rem;
+  font-size: 30px;
 }
 
 h2 {
@@ -154,6 +154,7 @@ progress {
 .btn-option {
   width: 100%;
   text-align: left;
+  margin-bottom: 10px;
 }
 
 .btn-option.correct {
