@@ -8,6 +8,8 @@ import Question from './Question'
 import NextButton from './NextButton'
 import Progress from './Progress'
 import FinishScreen from './FinishScreen'
+import Footer from './Footer'
+import Timer from './Timer'
 
 const initialState = {
   questions: [],
@@ -16,6 +18,7 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
+  secondsRemaining: 10,
 }
 
 // action can also take data from initial satate at the same time like status
@@ -45,6 +48,12 @@ const reducer = (state, action) => {
     
     case 'finish':
       return { ...state, status: 'finished', highscore: state.points > state.highscore ? state.points : state.highscore }
+    
+    case 'reset':
+      return { ...initialState, questions: state.questions, status: 'ready' }
+    
+    case 'tick':
+      return { ...state, secondsRemaining: state.secondsRemaining - 1 }
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -52,8 +61,10 @@ const reducer = (state, action) => {
 }
 
 const App = () => {
-  const [{ questions, status, index, answer, points, highscore }, dispatch] =
-    useReducer(reducer, initialState)
+  const [
+    { questions, status, index, answer, points, highscore, secondsRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState)
   // const [state, dispatch] = useReducer(reducer, initialState)
 
   const numQuestions = questions.length
@@ -89,13 +100,16 @@ const App = () => {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton
-              status={status}
-              dispatch={dispatch}
-              answer={answer}
-              numQuestions={numQuestions}
-              index={index}
-            />
+            <Footer>
+              <Timer secondsRemaining={secondsRemaining} dispatch={dispatch} />
+              <NextButton
+                status={status}
+                dispatch={dispatch}
+                answer={answer}
+                numQuestions={numQuestions}
+                index={index}
+              />
+            </Footer>
           </>
         )}
         {status === 'finished' && (
@@ -103,6 +117,7 @@ const App = () => {
             points={points}
             maxPossiblePoints={maxPossiblePoints}
             highscore={highscore}
+            dispatch={dispatch}
           />
         )}
       </Main>
